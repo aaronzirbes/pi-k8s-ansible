@@ -1,0 +1,5 @@
+#!/bin/bash -e
+
+cp /root/.ssh/id_rsa.local /root/.ssh/id_rsa
+chmod 0600 /root/.ssh/id_rsa
+ansible-playbook -i inventory.ini base.yml

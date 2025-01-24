@@ -1,0 +1,7 @@
+---
+- name: base os install
+  hosts: pies
+  become: yes
+  remote_user: ajz
+  roles:
+    - apt_update

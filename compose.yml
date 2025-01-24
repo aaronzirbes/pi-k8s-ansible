@@ -1,0 +1,13 @@
+services:
+  ansible-runner:
+    # image: hub.docker.com/alpine/ansible:2.18.1
+    image: hub.docker.target.com/alpine/ansible:2.18.1
+    volumes:
+      - ~/.ssh/id_rsa:/root/.ssh/id_rsa.local
+      - ./roles:/ansible/roles
+      - ./base.yml:/ansible/base.yml
+      - ./inventory.ini:/ansible/inventory.ini
+      - ./entrypoint:/ansible/entrypoint
+    working_dir: /ansible
+    command: /ansible/entrypoint
+
