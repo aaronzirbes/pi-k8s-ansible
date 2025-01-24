@@ -9,3 +9,9 @@ run-compose:
 # Run via docker directly
 run-local:
 	ansible-playbook -i inventory base.yml
+
+galaxy:
+	ansible-galaxy collection install community.general
+
+install-helm:
+	brew install helm

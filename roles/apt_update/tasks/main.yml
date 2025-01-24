@@ -1,7 +1,11 @@
-- name: Run the equivalent of "apt-get update" as a separate step
-  apt:
-    update_cache: true
-    cache_valid_time: 3600
-- name: Update all packages to the latest version
-  apt:
-    upgrade: dist
+#- name: Include cgroup tasks
+#  include_tasks: cgroup.yml
+#
+#- name: Include package updates
+#  include_tasks: update_packages.yml
+#
+- name: Include kubernetes
+  include_tasks: microk8s.yml
+
+#- name: Include Ceph
+#  include_tasks: microceph.yml

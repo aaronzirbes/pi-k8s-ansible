@@ -1,0 +1,33 @@
+- name: Install (micro)k8s via snap
+  snap:
+    name: microk8s
+    channel: 1.32/stable
+    classic: yes
+    state: present
+  notify: reboot
+
+- name: Get the IP address of the primary host and calculate the desired cluster size
+  set_fact:
+    primary_ip: "{{ hostvars[groups['primary'][0]].ansible_default_ipv4.address }}"
+    cluster_size: "{{ groups['all'] | length }}"
+
+- name: Look up pod count on host
+  shell: "/snap/bin/microk8s.kubectl get node --output=name |wc -l "
+  changed_when: false
+  register: pod_count
+
+- name: Create join key and read output
+  command: /snap/bin/microk8s add-node --format short --token {{ join_key}}
+  when: inventory_hostname in groups['primary'] and pod_count.stdout != cluster_size
+
+- name: Join cluster and read output
+  command: /snap/bin/microk8s.join {{ primary_ip }}:25000/{{ join_key}}
+  when: inventory_hostname in groups['workers'] and pod_count.stdout == "1"
+
+- name: Add alias for kubectl
+  lineinfile:
+    path: /home/{{ ansible_user }}/.bashrc
+    line: "alias kubectl='sudo /snap/bin/microk8s.kubectl'"
+    create: yes
+  become: false
+  # become_user: {{ ansible_ssh_user }}
