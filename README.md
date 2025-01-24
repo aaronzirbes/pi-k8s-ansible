@@ -47,11 +47,6 @@ export KUBECONFIG=~/.kube/config.pies
 Install rook via Helm
 ```shell
 make install-rook
-helm repo add rook-release https://charts.rook.io/release
-helm install --create-namespace \
-  --namespace rook-ceph \
-  rook-ceph rook-release/rook-ceph \
-  -f values.yaml
 ```
 
 ## Options

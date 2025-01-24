@@ -5,10 +5,7 @@
 image:
   # -- Image
   repository: docker.io/rook/ceph
-  # -- Image tag
-  # @default -- `master`
   tag: v1.16.2
-  # -- Image pull policy
   pullPolicy: IfNotPresent
 
 crds:
@@ -78,20 +75,20 @@ allowLoopDevices: false
 # needed
 csi:
   # -- Enable Ceph CSI RBD driver
-  enableRbdDriver: true
+  enableRbdDriver: false
   # -- Enable Ceph CSI CephFS driver
-  enableCephfsDriver: true
+  enableCephfsDriver: false
   # -- Disable the CSI driver.
-  disableCsiDriver: "false"
+  disableCsiDriver: true
 
   # -- Enable host networking for CSI CephFS and RBD nodeplugins. This may be necessary
   # in some network configurations where the SDN does not provide access to an external cluster or
   # there is significant drop in read/write performance
   enableCSIHostNetwork: true
   # -- Enable Snapshotter in CephFS provisioner pod
-  enableCephfsSnapshotter: true
+  enableCephfsSnapshotter: false
   # -- Enable Snapshotter in NFS provisioner pod
-  enableNFSSnapshotter: true
+  enableNFSSnapshotter: false
   # -- Enable Snapshotter in RBD provisioner pod
   enableRBDSnapshotter: true
   # -- Enable Host mount for `/etc/selinux` directory for Ceph CSI nodeplugins
