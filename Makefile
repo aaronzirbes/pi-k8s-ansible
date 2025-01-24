@@ -13,5 +13,10 @@ run-local:
 galaxy:
 	ansible-galaxy collection install community.general
 
-install-helm:
-	brew install helm
+install-brew:
+	brew install helm kubectl
+
+install-rook:
+	KUBECONFIG=~/.kube/config.pies helm repo add rook-release https://charts.rook.io/release
+	KUBECONFIG=~/.kube/config.pies helm install --create-namespace --namespace rook-ceph rook-ceph rook-release/rook-ceph -f rook-ceph-values.yaml
+

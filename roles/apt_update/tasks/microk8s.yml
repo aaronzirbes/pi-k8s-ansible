@@ -30,4 +30,25 @@
     line: "alias kubectl='sudo /snap/bin/microk8s.kubectl'"
     create: yes
   become: false
-  # become_user: {{ ansible_ssh_user }}
+
+- name: Add alias for kubectl
+  lineinfile:
+    path: /home/{{ ansible_user }}/.bashrc
+    line: "alias microk8s='sudo /snap/bin/microk8s'"
+    create: yes
+  become: false
+
+
+- name: Look up pod count on host
+  shell: "/snap/bin/microk8s config"
+  changed_when: false
+  register: kubectl_config
+  when: inventory_hostname in groups['primary']
+
+- name: Write kubectl config to file
+  delegate_to: localhost
+  copy:
+    content: "{{ kubectl_config.stdout }}"
+    dest: "{{ lookup('env', 'HOME') }}/.kube/config.pies"
+  when: inventory_hostname in groups['primary']
+  become: no
