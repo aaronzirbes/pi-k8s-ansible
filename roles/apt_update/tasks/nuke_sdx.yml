@@ -1,0 +1,23 @@
+
+- name: Unmount sda1 partition
+  mount:
+    path: /dev/sda1
+    state: unmounted
+
+- name: Unmount sdb1 partition
+  mount:
+    path: /dev/sdb1
+    state: unmounted
+  become: true
+
+- name: Delete sda1 partition
+  parted:
+    device: /dev/sda
+    number: 1
+    state: absent
+
+- name: Delete sdb1 partition
+  parted:
+    device: /dev/sdb
+    number: 1
+    state: absent

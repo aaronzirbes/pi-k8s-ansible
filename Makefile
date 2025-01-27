@@ -17,14 +17,16 @@ install-brew:
 	brew install helm kubectl
 
 install-rook:
+	@echo "ℹ️ This may take a few minutes to download"
 	@KUBECONFIG=~/.kube/config.pies helm repo add rook-release https://charts.rook.io/release
 	@KUBECONFIG=~/.kube/config.pies helm install \
 			   --create-namespace \
 			   --namespace rook-ceph \
 			   rook-ceph rook-release/rook-ceph \
-			   -f helm-rook-values.yaml
+				-f helm-rook-values.yaml
 
 install-ceph:
+	@echo "ℹ️ This may take a few minutes to download"
 	@KUBECONFIG=~/.kube/config.pies helm repo add rook-release https://charts.rook.io/release
 	@KUBECONFIG=~/.kube/config.pies helm install \
 				--create-namespace \
@@ -36,8 +38,10 @@ install-ceph:
 
 
 rook-status:
-	@echo "ℹ️ This may take a few minutes to download"
 	kubectl --namespace rook-ceph get pods -l "app=rook-ceph-operator"
+
+ceph-status:
+	kubectl --namespace rook-ceph get cephcluster
 
 rook-decribe:
 	kubectl --namespace rook-ceph describe pods -l "app=rook-ceph-operator"
