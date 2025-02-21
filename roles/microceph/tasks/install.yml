@@ -1,0 +1,18 @@
+---
+- name: Install (micro)ceph via snap
+  snap:
+    name: microceph
+    channel: quincy/stable
+    state: present
+
+- name: Determine if microceph has been bootstrapped
+  command: /snap/bin/microceph cluster list
+  register: cluster_bootstrapped
+  failed_when: cluster_bootstrapped.rc != 0
+  changed_when: false
+  ignore_errors: yes
+  when: inventory_hostname in groups['primary']
+
+- name: Boostrap cluster
+  command: /snap/bin/microceph cluster bootstrap
+  when: inventory_hostname in groups['primary'] and cluster_bootstrapped.failed

@@ -8,7 +8,6 @@
   mount:
     path: /dev/sdb1
     state: unmounted
-  become: true
 
 - name: Delete sda1 partition
   parted:

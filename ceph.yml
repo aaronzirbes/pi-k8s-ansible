@@ -1,0 +1,7 @@
+---
+- name: Ceph Install
+  hosts: pies
+  become: yes
+  remote_user: ajz
+  roles:
+    - microceph

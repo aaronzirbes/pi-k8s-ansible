@@ -1,0 +1,6 @@
+
+- name: Refresh CAs
+  shell: "microk8s.refresh-certs --cert ca.crt"
+
+- name: Refresh Server Cert
+  shell: "microk8s.refresh-certs --cert server.crt"

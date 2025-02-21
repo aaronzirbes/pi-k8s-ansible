@@ -1,0 +1,19 @@
+---
+- name: Prepare to add node
+  command: /snap/bin/microceph cluster add pawn2
+  register: pawn2addoutput
+  when: inventory_hostname in groups['primary']
+
+- name: Set the join token as a fact
+  set_fact:
+    pawn2jointoken: "{{ pawn2addoutput.stdout | trim }}"
+  when: inventory_hostname in groups['primary']
+
+- name: The pawn2jointoken
+  debug:
+    msg: "The pawn2jointoken is {{ pawn2jointoken }}"
+  when: inventory_hostname in groups['primary']
+
+- name: register member
+  command: /snap/bin/microceph cluster join /snap/bin/microceph cluster join {{ hostvars['primary'][0].pawn2jointoken }}"
+  when: inventory_hostname in groups['workers'] and host == "pawn2"

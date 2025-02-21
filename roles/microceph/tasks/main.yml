@@ -1,0 +1,9 @@
+---
+#- name: Install Ceph
+#  include_tasks: install.yml
+
+- name: Join Cluster
+  include_tasks: join.yml
+
+#- name: Nuke Drives
+#  include_tasks: nuke_sdx.yml
