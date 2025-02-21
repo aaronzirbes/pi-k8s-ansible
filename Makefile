@@ -8,7 +8,7 @@ run-compose:
 
 # Run via docker directly
 run-local:
-	ansible-playbook -i inventory base.yml
+	ansible-playbook -i inventory.ini base.yml
 
 galaxy:
 	ansible-galaxy collection install community.general
