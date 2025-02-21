@@ -1,0 +1,5 @@
+---
+- name: reboot
+  ansible.builtin.reboot:
+    msg: "Reboot initiated by Ansible"
+    reboot_timeout: 600

@@ -1,12 +1,7 @@
-#- name: Include cgroup tasks
-#  include_tasks: cgroup.yml
+- name: Include cgroup tasks
+  include_tasks: cgroup.yml
 
-#- name: Include package updates
-#  include_tasks: update_packages.yml
-#
-#- name: Include kubernetes
-#  include_tasks: microk8s.yml
+- name: Include package updates
+  include_tasks: update_packages.yml
 
-- name: Include reset drives
-  include_tasks: nuke_sdx.yml
 

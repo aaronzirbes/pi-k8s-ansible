@@ -25,7 +25,7 @@ install-rook:
 			   rook-ceph rook-release/rook-ceph \
 				-f helm-rook-values.yaml
 
-install-ceph:
+xinstall-ceph:
 	@echo "ℹ️ This may take a few minutes to download"
 	@KUBECONFIG=~/.kube/config.pies helm repo add rook-release https://charts.rook.io/release
 	@KUBECONFIG=~/.kube/config.pies helm install \
@@ -40,7 +40,7 @@ install-ceph:
 rook-status:
 	kubectl --namespace rook-ceph get pods -l "app=rook-ceph-operator"
 
-ceph-status:
+xceph-status:
 	kubectl --namespace rook-ceph get cephcluster
 
 rook-decribe:
